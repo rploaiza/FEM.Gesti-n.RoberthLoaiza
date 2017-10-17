@@ -9,5 +9,6 @@
 
     <PreferenceCategory android:title="@string/prefTituloCategoria2">
         <!-- TODO Añadir otros ajustes -->
+
     </PreferenceCategory>
 </PreferenceScreen>

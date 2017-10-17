@@ -40,4 +40,11 @@
         android:orderInCategory="200"
         />
 
+    <item
+        android:id="@+id/Traductor"
+        android:title="@string/txtIdioma"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:orderInCategory="200"
+        />
+
 </menu>

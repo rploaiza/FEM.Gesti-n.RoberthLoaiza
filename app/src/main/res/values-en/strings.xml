@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Solitario Celta</string>
+    <string name="aboutMessage">The game consists of eating pieces
+    (horizontal or vertical) until only one piece remains
+    in the middle. In each movement, the piece can jump only one piece.</string>
+    <string name="aboutText">About</string>
+    <string name="prefTextoNombreJugador">Press to type the player\'s name</string>
+    <string name="prefTituloCategoria1">Personal information</string>
+    <string name="prefTituloCategoria2">Game Settings</string>
+    <string name="prefTituloNombreJugador">Player\'s name</string>
+    <string name="preferencesText">Settings</string>
+    <string name="str_en">English</string>
+    <string name="str_es">Spanish</string>
+    <string name="txtDialogoFinalAfirmativo">Yes</string>
+    <string name="txtDialogoFinalNegativo">No</string>
+    <string name="txtDialogoFinalPregunta">Do you want to play another game?</string>
+    <string name="txtDialogoFinalTitulo">Game over</string>
+    <string name="txtDialogoReinicioDeMensaje">Do you want to start the game again?</string>
+    <string name="txtDialogoReinicioDeNegativo">No</string>
+    <string name="txtDialogoReinicioDePositivo">Yes</string>
+    <string name="txtDialogoReinicioDeTitulo">Reset Start</string>
+    <string name="txtOpcionMejoresResultados">Best results</string>
+    <string name="txtOpcionGuardar">Save game</string>
+    <string name="txtOpcionRecuperar">Retrieve Match</string>
+    <string name="txtReiniciarPartida">Restart</string>
+    <string name="txtSinImplementar">Not implemented yet!</string>
+    <string name="txtIdioma">Language</string>
+</resources>
