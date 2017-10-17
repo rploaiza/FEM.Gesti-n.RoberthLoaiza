@@ -1,11 +1,13 @@
 package es.upm.miw.SolitarioCelta;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -13,12 +15,17 @@ public class MainActivity extends Activity {
 
 	JuegoCelta juego;
     private final String GRID_KEY = "GRID_KEY";
+    private final String CRONOMETRO = "CRONOMETRO";
+    Chronometer cronometro;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         juego = new JuegoCelta();
         mostrarTablero();
+        cronometro=((Chronometer) findViewById(R.id.chronometer));
+        cronometro.start();
+        cronometro.setFormat("Time(%s)");
     }
 
     /**
@@ -67,6 +74,7 @@ public class MainActivity extends Activity {
      */
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(GRID_KEY, juego.serializaTablero());
+        outState.putLong(CRONOMETRO,cronometro.getBase());
         super.onSaveInstanceState(outState);
     }
 
@@ -76,6 +84,10 @@ public class MainActivity extends Activity {
      */
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        if((savedInstanceState !=null)
+                && savedInstanceState.containsKey(CRONOMETRO)){
+            cronometro.setBase(savedInstanceState.getLong(CRONOMETRO));
+        }
         String grid = savedInstanceState.getString(GRID_KEY);
         juego.deserializaTablero(grid);
         mostrarTablero();
@@ -94,6 +106,10 @@ public class MainActivity extends Activity {
                 return true;
             case R.id.opcAcercaDe:
                 startActivity(new Intent(this, AcercaDe.class));
+                return true;
+            case R.id.opcReiniciarPartida:
+                DialogFragment dialogFragment = new Reiniciar();
+                dialogFragment.show(getFragmentManager(),"restart");
                 return true;
 
             // TODO!!! resto opciones
