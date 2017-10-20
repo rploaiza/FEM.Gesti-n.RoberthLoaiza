@@ -10,8 +10,6 @@
     <string name="prefTituloCategoria2">Ajustes del juego</string>
     <string name="prefTituloNombreJugador">Nombre del jugador</string>
     <string name="preferencesText">Ajustes</string>
-    <string name="str_en">Ingles</string>
-    <string name="str_es">Español</string>
     <string name="txtDialogoFinalAfirmativo">Sí</string>
     <string name="txtDialogoFinalNegativo">No</string>
     <string name="txtDialogoFinalPregunta">¿Quiere jugar otra partida?</string>
@@ -26,4 +24,18 @@
     <string name="txtReiniciarPartida">Reiniciar</string>
     <string name="txtSinImplementar">¡No implementado aún!</string>
     <string name="txtIdioma">Idioma</string>
+    <string name="txt_time">Tiempo </string>
+    <string name="txt_token">Ficha </string>
+    <!--Idioma -->
+    <string-array name="languages">
+        <item>Español</item>
+        <item>Ingles</item>
+    </string-array>
+
+    <string-array name="languagesValues">
+        <item>es</item>
+        <item>en</item>
+    </string-array>
+    <string name="txtInfoList">Indica el idioma que deseas en el juego.</string>
+
 </resources>
