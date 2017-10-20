@@ -9,6 +9,13 @@
 
     <PreferenceCategory android:title="@string/prefTituloCategoria2">
         <!-- TODO Añadir otros ajustes -->
+        <ListPreference
+            android:defaultValue="@string/default_idioma"
+            android:entries="@array/languages"
+            android:entryValues="@array/languagesValues"
+            android:key="@string/key_idioma"
+            android:summary="@string/txtInfoList"
+            android:title="@string/txtIdioma"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

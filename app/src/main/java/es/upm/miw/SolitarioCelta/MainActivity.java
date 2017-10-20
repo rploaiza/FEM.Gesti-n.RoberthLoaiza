@@ -1,57 +1,80 @@
 package es.upm.miw.SolitarioCelta;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
 
 public class MainActivity extends Activity {
 
-	JuegoCelta juego;
     private final String GRID_KEY = "GRID_KEY";
     private final String CRONOMETRO = "CRONOMETRO";
-    Chronometer cronometro;
+    private final String SCORE = "SCORE";
     private Locale locale;
-    private Configuration config = new Configuration();
-
+    JuegoCelta juego;
+    Chronometer cronometro;
+    TextView score;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         juego = new JuegoCelta();
         mostrarTablero();
-        cronometro=((Chronometer) findViewById(R.id.chronometer));
+        cronometro = ((Chronometer) findViewById(R.id.chronometer));
         cronometro.start();
-        cronometro.setFormat("Time(%s)");
+        cronometro.setFormat(getString(R.string.txt_time) + "(%s)");
+
+        score = (TextView) findViewById(R.id.score);
+        score.setText(R.string.txt_token);
+
     }
+
+    public void onStart() {
+        super.onStart();
+        final Configuration configs = getBaseContext().getResources().getConfiguration();
+        final String language = PreferenceManager.getDefaultSharedPreferences(this).getString("language", "");
+
+        if (!TextUtils.isEmpty(language) && !configs.locale.getLanguage().equals(language)) {
+            locale = new Locale(language);
+            Locale.setDefault(locale);
+            configs.locale = locale;
+            getBaseContext().getResources().updateConfiguration(configs, getBaseContext().getResources().getDisplayMetrics());
+            startActivity(new Intent(this, MainActivity.class));
+
+        }
+    }
+
 
     /**
      * Se ejecuta al pulsar una ficha
      * Las coordenadas (i, j) se obtienen a partir del nombre, ya que el botón
      * tiene un identificador en formato pXY, donde X es la fila e Y la columna
+     *
      * @param v Vista de la ficha pulsada
      */
     public void fichaPulsada(View v) {
         String resourceName = getResources().getResourceEntryName(v.getId());
         int i = resourceName.charAt(1) - '0';   // fila
         int j = resourceName.charAt(2) - '0';   // columna
-
         juego.jugar(i, j);
-
+        score.setText(getString(R.string.txt_token).concat(" ") + juego.contPiezas());
         mostrarTablero();
         if (juego.juegoTerminado()) {
             // TODO guardar puntuación
+            cronometro.stop();
             new AlertDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
         }
     }
@@ -78,23 +101,26 @@ public class MainActivity extends Activity {
 
     /**
      * Guarda el estado del tablero (serializado)
+     *
      * @param outState Bundle para almacenar el estado del juego
      */
     public void onSaveInstanceState(Bundle outState) {
         outState.putString(GRID_KEY, juego.serializaTablero());
-        outState.putLong(CRONOMETRO,cronometro.getBase());
+        outState.putLong(CRONOMETRO, cronometro.getBase());
+        outState.putString(SCORE, score.getText().toString());
         super.onSaveInstanceState(outState);
     }
 
     /**
      * Recupera el estado del juego
+     *
      * @param savedInstanceState Bundle con el estado del juego almacenado
      */
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if((savedInstanceState !=null)
-                && savedInstanceState.containsKey(CRONOMETRO)){
+        if ((savedInstanceState != null) && savedInstanceState.containsKey(CRONOMETRO)) {
             cronometro.setBase(savedInstanceState.getLong(CRONOMETRO));
+            score.setText(savedInstanceState.getString(SCORE));
         }
         String grid = savedInstanceState.getString(GRID_KEY);
         juego.deserializaTablero(grid);
@@ -117,10 +143,7 @@ public class MainActivity extends Activity {
                 return true;
             case R.id.opcReiniciarPartida:
                 DialogFragment dialogFragment = new Reiniciar();
-                dialogFragment.show(getFragmentManager(),"restart");
-                return true;
-            case R.id.Traductor:
-                showDialog();
+                dialogFragment.show(getFragmentManager(), "restart");
                 return true;
             // TODO!!! resto opciones
 
@@ -132,37 +155,6 @@ public class MainActivity extends Activity {
                 ).show();
         }
         return true;
-    }
-
-    private void showDialog(){
-        AlertDialog.Builder idioma = new AlertDialog.Builder(this);
-        idioma.setTitle(getResources().getString(R.string.txtIdioma));
-        String[] types = getResources().getStringArray(R.array.languages);
-        idioma.setItems(types, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.dismiss();
-                switch(which){
-                    case 0:
-                        locale = new Locale("en");
-                        config.locale =locale;
-                        break;
-                    case 1:
-                        locale = new Locale("es");
-                        config.locale =locale;
-                        break;
-                }
-                getResources().updateConfiguration(config, null);
-                Intent refresh = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(refresh);
-                finish();
-            }
-
-        });
-
-        idioma.show();
     }
 
 }

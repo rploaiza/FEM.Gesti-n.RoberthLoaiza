@@ -177,4 +177,13 @@ class JuegoCelta {
 
         estadoJuego = Estado.ESTADO_SELECCION_FICHA;
 	}
+
+	int contPiezas() {
+		int contPiezas = 0;
+		for (int i = 0; i < TAMANIO; i++)
+			for (int j = 0; j < TAMANIO; j++)
+				if (this.tablero[i][j] == JuegoCelta.FICHA)
+					contPiezas++;
+		return contPiezas;
+	}
 }
