@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -22,6 +23,8 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends Activity {
@@ -73,7 +76,7 @@ public class MainActivity extends Activity {
      *
      * @param v Vista de la ficha pulsada
      */
-    public void fichaPulsada(View v) {
+    public void fichaPulsada(View v) throws IOException {
         String resourceName = getResources().getResourceEntryName(v.getId());
         int i = resourceName.charAt(1) - '0';   // fila
         int j = resourceName.charAt(2) - '0';   // columna
@@ -83,7 +86,7 @@ public class MainActivity extends Activity {
         if (juego.juegoTerminado()) {
             // TODO guardar puntuación
             cronometro.stop();
-            new AlertDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
+            new GuardarDialogFragment().show(getFragmentManager(), "ALERT_DIALOG");
         }
     }
 
@@ -147,13 +150,36 @@ public class MainActivity extends Activity {
         fin.close();
         if (this.numFichas > juego.numeroFichas()) {
             DialogFragment dialogFragment = new GetDialogFragment();
-            dialogFragment.show(getFragmentManager(), "getGame");
+            dialogFragment.show(getFragmentManager(), "SAVE_GAME");
             this.numFichas = juego.numeroFichas();
         } else {
             juego.deserializaTablero(estadoGuardado);
             this.mostrarTablero();
         }
         Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
+    }
+
+    public void saveResultVariable(String nombre)throws IOException{
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String Time = dateFormat.format(new Date());
+
+        Resultados resultado = new Resultados(nombre,Time,juego.contPiezas(), (String) cronometro.getText());
+        guardarResultado(resultado);
+        cronometro.start();
+    }
+
+    public void guardarResultado(Resultados resultado) throws IOException {
+        FileOutputStream fos = openFileOutput("result.txt", Context.MODE_APPEND);
+        fos.write(resultado.getNombreJugador().getBytes());
+        fos.write("\t".getBytes());
+        fos.write(resultado.getFecha().getBytes());
+        fos.write("\t".getBytes());
+        fos.write(String.valueOf(resultado.getNumPiezas()).getBytes());
+        fos.write("\t".getBytes());
+        fos.write(String.valueOf(resultado.getCronometro()).getBytes());
+        fos.write("\n".getBytes());
+        fos.close();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -166,7 +192,7 @@ public class MainActivity extends Activity {
                 return true;
             case R.id.opcReiniciarPartida:
                 DialogFragment dialogFragment = new Reiniciar();
-                dialogFragment.show(getFragmentManager(), "restart");
+                dialogFragment.show(getFragmentManager(), "RESET");
                 return true;
             case R.id.opcGuardarPartida:
                 try {
@@ -184,6 +210,9 @@ public class MainActivity extends Activity {
                 } catch (IOException e) {
                     Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
                 }
+                return true;
+            case R.id.opcMejoresResultados:
+                startActivity(new Intent(this, ViewResultados.class));
                 return true;
             // TODO!!! resto opciones
 

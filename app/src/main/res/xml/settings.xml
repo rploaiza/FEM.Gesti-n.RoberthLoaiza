@@ -4,7 +4,8 @@
         <EditTextPreference
             android:key="nombreJugador"
             android:title="@string/prefTituloNombreJugador"
-            android:summary="@string/prefTextoNombreJugador" />
+            android:summary="@string/prefTextoNombreJugador"
+            android:hint="@string/prefHintJugador" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefTituloCategoria2">

@@ -6,6 +6,7 @@
     in the middle. In each movement, the piece can jump only one piece.</string>
     <string name="aboutText">About</string>
     <string name="prefTextoNombreJugador">Press to type the player\'s name</string>
+    <string name="prefHintJugador">Player</string>
     <string name="prefTituloCategoria1">Personal information</string>
     <string name="prefTituloCategoria2">Game Settings</string>
     <string name="prefTituloNombreJugador">Player\'s name</string>
@@ -41,4 +42,7 @@
     <string name="txt_getSaveTitle">Games</string>
     <string name="txt_getSaveMessage">You are sure to want to load the stored item, because there is chip movement!</string>
     <string name="txt_getSave">Cargando</string>
+    <!--Resultados-->
+    <string name="resultSave">Guardar</string>
+    <string name="resultCancel">Cancelar</string>
 </resources>
