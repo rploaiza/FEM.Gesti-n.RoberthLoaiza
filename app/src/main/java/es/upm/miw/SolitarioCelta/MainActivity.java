@@ -165,11 +165,11 @@ public class MainActivity extends Activity {
         String Time = dateFormat.format(new Date());
 
         Resultados resultado = new Resultados(nombre,Time,juego.contPiezas(), (String) cronometro.getText());
-        guardarResultado(resultado);
+        saveResultado(resultado);
         cronometro.start();
     }
 
-    public void guardarResultado(Resultados resultado) throws IOException {
+    public void saveResultado(Resultados resultado) throws IOException {
         FileOutputStream fos = openFileOutput("result.txt", Context.MODE_APPEND);
         fos.write(resultado.getNombreJugador().getBytes());
         fos.write("\t".getBytes());

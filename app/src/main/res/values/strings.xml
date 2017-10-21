@@ -43,4 +43,5 @@
     <!--Resultados-->
     <string name="resultSave">Guardar</string>
     <string name="resultCancel">Cancelar</string>
+    <string name="deleteResultado">Borrar Puntuaciones</string>
 </resources>
