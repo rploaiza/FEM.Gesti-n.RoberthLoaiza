@@ -26,6 +26,7 @@
     <string name="txtIdioma">Language</string>
     <string name="txt_time">Time </string>
     <string name="txt_token">Token </string>
+    <string name="txt_saveGame">Save</string>
     <!--Language -->
     <string-array name="languages">
         <item>Spanish</item>
@@ -36,4 +37,8 @@
         <item>en</item>
     </string-array>
     <string name="txtInfoList">Indicate the language you want in the game.</string>
+    <!--Partidas almacenadas-->
+    <string name="txt_getSaveTitle">Games</string>
+    <string name="txt_getSaveMessage">You are sure to want to load the stored item, because there is chip movement!</string>
+    <string name="txt_getSave">Cargando</string>
 </resources>

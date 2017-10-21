@@ -35,5 +35,8 @@
     <!--Idioma-->
     <string name="key_idioma">language</string>
     <string name="default_idioma">es</string>
-
+    <!--Partidas almacenadas-->
+    <string name="txt_getSaveTitle">Partidas</string>
+    <string name="txt_getSaveMessage">Esta seguro que quiere cargar la partida almacenada, porque existe movimiento de fichas!</string>
+    <string name="txt_getSave">Cargando</string>
 </resources>
