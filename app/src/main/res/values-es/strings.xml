@@ -26,6 +26,7 @@
     <string name="txtIdioma">Idioma</string>
     <string name="txt_time">Tiempo </string>
     <string name="txt_token">Ficha </string>
+    <string name="txt_saveGame">Guardar</string>
     <!--Idioma -->
     <string-array name="languages">
         <item>Español</item>

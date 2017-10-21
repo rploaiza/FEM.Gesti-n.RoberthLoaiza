@@ -2,12 +2,14 @@ package es.upm.miw.SolitarioCelta;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Locale;
 
 public class MainActivity extends Activity {
@@ -27,6 +33,8 @@ public class MainActivity extends Activity {
     JuegoCelta juego;
     Chronometer cronometro;
     TextView score;
+    public String estadoGuardado;
+    private int numFichas;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,6 +141,21 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    public void getGame() throws IOException {
+        BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput("partida.txt")));
+        this.estadoGuardado = fin.readLine();
+        fin.close();
+        if (this.numFichas > juego.numeroFichas()) {
+            DialogFragment dialogFragment = new GetDialogFragment();
+            dialogFragment.show(getFragmentManager(), "getGame");
+            this.numFichas = juego.numeroFichas();
+        } else {
+            juego.deserializaTablero(estadoGuardado);
+            this.mostrarTablero();
+        }
+        Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.opcAjustes:
@@ -144,6 +167,23 @@ public class MainActivity extends Activity {
             case R.id.opcReiniciarPartida:
                 DialogFragment dialogFragment = new Reiniciar();
                 dialogFragment.show(getFragmentManager(), "restart");
+                return true;
+            case R.id.opcGuardarPartida:
+                try {
+                    FileOutputStream fos = openFileOutput("partida.txt", Context.MODE_PRIVATE);
+                    fos.write(juego.serializaTablero().getBytes());
+                    fos.close();
+                    Toast.makeText(this, getString(R.string.txt_saveGame), Toast.LENGTH_SHORT).show();
+                    this.numFichas = juego.numeroFichas();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            case R.id.opcRecuperarPartida:
+                try {
+                    getGame();
+                } catch (IOException e) {
+                    Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
+                }
                 return true;
             // TODO!!! resto opciones
 
