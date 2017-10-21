@@ -1,9 +1,12 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+
+import es.upm.miw.SolitarioCelta.R;
+import es.upm.miw.SolitarioCelta.fragment.SCeltaFragmentoPrefs;
 
 public class SCeltaPrefs extends Activity {
 

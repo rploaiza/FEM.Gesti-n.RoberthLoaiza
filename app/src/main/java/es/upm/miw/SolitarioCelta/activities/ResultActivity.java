@@ -1,8 +1,7 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.activities;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,71 +17,79 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import es.upm.miw.SolitarioCelta.logic.AdapterResultados;
+import es.upm.miw.SolitarioCelta.R;
+import es.upm.miw.SolitarioCelta.logic.Resultados;
+import es.upm.miw.SolitarioCelta.dialogs.DeleteResultDialogFragment;
+
 /**
  * Created by Usuario on 21/10/2017.
  */
 
-public class ViewResultados extends Activity {
+public class ResultActivity extends Activity {
 
-    Context context = null;
+    public final static String RESULT = "result.txt";
+    private FileOutputStream fileOutputStream;
     List<String> resultados = new ArrayList<String>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result);
-
-        context = getApplicationContext();
-
-        ListView lvListado = (ListView) findViewById(R.id.listado);
-
+        ListView listView = (ListView) findViewById(R.id.listado);
         try {
             resultados = obtenerResultados();
             List<Resultados> listaObjetosResultado = obtenerListaObjetosResultado(resultados);
             resultados = ordenarResultados(listaObjetosResultado);
             AdapterResultados adaptador = new AdapterResultados(this, R.layout.result, resultados);
-            lvListado.setAdapter(adaptador);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            listView.setAdapter(adaptador);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    //Obtener una la lista de objetos - tabulados
     private List<Resultados> obtenerListaObjetosResultado(List<String> resultados) {
-        List<Resultados> list = new ArrayList<Resultados>();
+        List<Resultados> lista = new ArrayList<Resultados>();
         for (String resul : resultados) {
             String[] separated = resul.split("\t");
-            Resultados r = new Resultados(
-                    separated[0],
-                    separated[1],
-                    Integer.parseInt(separated[2]),
-                    separated[3]
-            );
-            list.add(r);
+            Resultados r = new Resultados(separated[0], separated[1], Integer.parseInt(separated[2]), separated[3]);
+            lista.add(r);
         }
-        return list;
+        return lista;
     }
 
+    //Ordenar los objetos para visualizar en el view
     private List<String> ordenarResultados(List<Resultados> resultados) {
         List<String> listaOrdenada = new ArrayList<String>();
         Collections.sort(resultados);
-        for (Resultados r : resultados) {
-            String resultadoOrd = r.getNombreJugador() + "\t" + " " + r.getFecha() + "\t" + " - Piezas:" + r.getNumPiezas() + "\t" + " - " + r.getCronometro();
+        for (Resultados result : resultados) {
+            String resultadoOrd = result.getNombreJugador() + " " + result.getFecha() + " - " + getString(R.string.txt_token) + " (" + result.getNumPiezas() + ")\t" + " - " + result.getCronometro();
             listaOrdenada.add(resultadoOrd);
         }
         return listaOrdenada;
     }
 
+    //Read de fichero resultados
     private List<String> obtenerResultados() throws IOException {
-        BufferedReader read = new BufferedReader(new InputStreamReader(openFileInput("result.txt")));
-        String line = read.readLine();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(RESULT)));
+        String line = bufferedReader.readLine();
         while (line != null) {
             resultados.add(line);
-            line = read.readLine();
+            line = bufferedReader.readLine();
         }
-        read.close();
+        bufferedReader.close();
         return resultados;
     }
+
+    //Eliminar datos del fichero
+    public void deleteResultados() throws IOException {
+        fileOutputStream = openFileOutput(RESULT, Context.MODE_PRIVATE);
+        fileOutputStream.write("".getBytes());
+        fileOutputStream.close();
+        Toast.makeText(this, R.string.txtdelete, Toast.LENGTH_SHORT).show();
+
+    }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -93,17 +100,7 @@ public class ViewResultados extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteResultado:
-                FileOutputStream fos = null;
-                try {
-                    fos = openFileOutput("result.txt", Context.MODE_PRIVATE);
-                    fos.write("".getBytes());
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Toast.makeText(this, "Resultados eliminados", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, ViewResultados.class));
+                new DeleteResultDialogFragment().show(getFragmentManager(), "DELETE_DIALOG");
                 return true;
         }
         return true;

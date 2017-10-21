@@ -23,10 +23,6 @@
     <string name="txtOpcionRecuperar">Recuperar Partida</string>
     <string name="txtReiniciarPartida">Reiniciar</string>
     <string name="txtSinImplementar">¡No implementado aún!</string>
-    <string name="txtIdioma">Idioma</string>
-    <string name="txt_time">Tiempo </string>
-    <string name="txt_token">Ficha </string>
-    <string name="txt_saveGame">Guardar</string>
     <!--Idioma -->
     <string-array name="languages">
         <item>Español</item>
@@ -37,6 +33,13 @@
         <item>es</item>
         <item>en</item>
     </string-array>
-    <string name="txtInfoList">Indica el idioma que deseas en el juego.</string>
 
+    <string-array name="color">
+        <item>Ecuatoriano</item>
+        <item>Español</item>
+    </string-array>
+    <string-array name="colorValues">
+        <item>ec</item>
+        <item>es</item>
+    </string-array>
 </resources>

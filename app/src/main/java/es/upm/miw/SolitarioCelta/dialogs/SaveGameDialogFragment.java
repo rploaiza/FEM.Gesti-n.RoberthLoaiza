@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -7,17 +7,17 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import java.io.IOException;
+import es.upm.miw.SolitarioCelta.R;
+import es.upm.miw.SolitarioCelta.activities.MainActivity;
 
 /**
  * Created by Usuario on 21/10/2017.
  */
 
-public class GuardarDialogFragment extends DialogFragment {
+public class SaveGameDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -25,22 +25,22 @@ public class GuardarDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setView(View.inflate(main, R.layout.save_result, null))
-                .setTitle(R.string.txtDialogoFinalTitulo)
+                .setTitle(R.string.txtPlayer)
                 .setPositiveButton(
                         R.string.resultSave,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                String nombreDialog = ((EditText) GuardarDialogFragment.this
+                                String nombreDialog = ((EditText) SaveGameDialogFragment.this
                                         .getDialog().findViewById(R.id.userName))
                                         .getText().toString();
                                 try {
                                     if (nombreDialog.length() > 0) {
-                                        main.saveResultVariable(nombreDialog);
+                                        main.saveResultFormat(nombreDialog);
                                     } else {
                                         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(main);
                                         String nombrePrtef = sharedPref.getString("nombreJugador", "Jugador");
-                                        main.saveResultVariable(nombrePrtef);
+                                        main.saveResultFormat(nombrePrtef);
                                     }
                                     new AlertDialogFragment().show(getFragmentManager(), "ALERT DIALOG");
                                 } catch (Exception e) {
@@ -52,7 +52,7 @@ public class GuardarDialogFragment extends DialogFragment {
                         R.string.resultCancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                GuardarDialogFragment.this.getDialog().cancel();
+                                SaveGameDialogFragment.this.getDialog().cancel();
                             }
                         }
                 );

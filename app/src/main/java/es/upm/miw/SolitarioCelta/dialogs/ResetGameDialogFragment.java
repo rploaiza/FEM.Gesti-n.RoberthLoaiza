@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -7,37 +7,42 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 
-public class AlertDialogFragment extends DialogFragment {
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		final MainActivity main = (MainActivity) getActivity();
+import es.upm.miw.SolitarioCelta.R;
+import es.upm.miw.SolitarioCelta.activities.MainActivity;
+
+/**
+ * Created by Usuario on 16/10/2017.
+ */
+
+public class ResetGameDialogFragment extends DialogFragment {
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final MainActivity main = (MainActivity) getActivity();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(main);
         builder
-                .setTitle(R.string.txtDialogoFinalTitulo)
-                .setMessage(R.string.txtDialogoFinalPregunta)
+                .setTitle(R.string.txtDialogoReinicioDeTitulo)
+                .setMessage(R.string.txtDialogoReinicioDeMensaje)
                 .setPositiveButton(
-                        getString(R.string.txtDialogoFinalAfirmativo),
+                        getString(R.string.txtDialogoReinicioDePositivo),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 main.juego.reiniciar();
                                 main.mostrarTablero();
                                 main.cronometro.setBase(SystemClock.elapsedRealtime());
-                                main.score.setText(R.string.txt_token);
                             }
                         }
                 )
                 .setNegativeButton(
-                        getString(R.string.txtDialogoFinalNegativo),
+                        getString(R.string.txtDialogoReinicioDeNegativo),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                main.finish();
                             }
                         }
                 );
 
-		return builder.create();
-	}
+        return builder.create();
+    }
 }

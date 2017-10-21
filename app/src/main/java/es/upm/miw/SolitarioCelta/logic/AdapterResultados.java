@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.logic;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
+
+import es.upm.miw.SolitarioCelta.R;
 
 /**
  * Created by Usuario on 21/10/2017.
@@ -57,8 +59,8 @@ public class AdapterResultados extends ArrayAdapter {
         if (null != convertView) {
             view = (LinearLayout) convertView;
         } else {
-            LayoutInflater linf = (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = (LinearLayout) linf.inflate(this.getResultRecursoID(), parent, false);
+            LayoutInflater layoutInflater = (LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = (LinearLayout) layoutInflater.inflate(this.getResultRecursoID(), parent, false);
         }
         
         TextView resultado = (TextView) view.findViewById(R.id.resultado);

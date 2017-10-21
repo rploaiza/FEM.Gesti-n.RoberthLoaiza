@@ -18,5 +18,13 @@
             android:summary="@string/txtInfoList"
             android:title="@string/txtIdioma"/>
 
+        <ListPreference
+            android:defaultValue="@string/default_color"
+            android:entries="@array/color"
+            android:entryValues="@array/colorValues"
+            android:key="@string/key_color"
+            android:summary="@string/txtInfoColores"
+            android:title="@string/txtcolores"/>
+
     </PreferenceCategory>
 </PreferenceScreen>

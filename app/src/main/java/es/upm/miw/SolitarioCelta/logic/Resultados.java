@@ -1,15 +1,14 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.logic;
 
 /**
  * Created by Usuario on 21/10/2017.
  */
 
-public class Resultados implements Comparable<Resultados>{
+public class Resultados implements Comparable<Resultados> {
 
     private String nombreJugador;
     private String fecha;
     private int numPiezas;
-
     private String cronometro;
 
     public Resultados(String nombreJugador, String fecha, int numPiezas, String cronometro) {
@@ -50,15 +49,10 @@ public class Resultados implements Comparable<Resultados>{
     public void setCronometro(String cronometro) {
         this.cronometro = cronometro;
     }
+
     @Override
     public int compareTo(Resultados resultado) {
-        if(numPiezas<resultado.numPiezas) {
-            return -1;
-        }
-        if(numPiezas>resultado.numPiezas){
-            return 1;
-        }
-        return 0;
+        return (numPiezas > resultado.numPiezas) ? 1 : (numPiezas < resultado.numPiezas) ? -1 : 0;
     }
 }
 

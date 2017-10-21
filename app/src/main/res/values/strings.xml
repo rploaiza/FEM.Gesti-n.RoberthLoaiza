@@ -36,6 +36,11 @@
     <!--Idioma-->
     <string name="key_idioma">language</string>
     <string name="default_idioma">es</string>
+    <string name="txtIdioma">Idioma</string>
+    <string name="txt_time">Tiempo </string>
+    <string name="txt_token">Fichas </string>
+    <string name="txt_saveGame">Guardando</string>
+    <string name="txtInfoList">Indica el idioma que deseas en el juego.</string>
     <!--Partidas almacenadas-->
     <string name="txt_getSaveTitle">Partidas</string>
     <string name="txt_getSaveMessage">Esta seguro que quiere cargar la partida almacenada, porque existe movimiento de fichas!</string>
@@ -44,4 +49,20 @@
     <string name="resultSave">Guardar</string>
     <string name="resultCancel">Cancelar</string>
     <string name="deleteResultado">Borrar Puntuaciones</string>
+
+    <!-- Diálogo Delete Resultados -->
+    <string name="preferencesResult">Resultados</string>
+    <string name="txtDialogoDeleteTitulo">Eliminar resultados</string>
+    <string name="txtDialogoDeletePregunta">¿Quiere eliminar todos los resultados?</string>
+    <string name="txtDialogoDeleteAfirmativo">Sí</string>
+    <string name="txtDialogoDeleteNegativo">No</string>
+
+    <string name="txtPlayer">Nombre del Jugador</string>
+    <string name="txtdelete">Resultados eliminados</string>
+
+    <!--Color-->
+    <string name="key_color">colores</string>
+    <string name="default_color">ec</string>
+    <string name="txtcolores">Estilos</string>
+    <string name="txtInfoColores">Combinación de colores por país.</string>
 </resources>

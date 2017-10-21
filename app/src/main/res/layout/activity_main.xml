@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/madera"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".activities.MainActivity"
     tools:ignore="RtlHardcoded">
 
     <LinearLayout
