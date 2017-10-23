@@ -6,6 +6,7 @@
     in the middle. In each movement, the piece can jump only one piece.</string>
     <string name="aboutText">About</string>
     <string name="prefTextoNombreJugador">Press to type the player\'s name</string>
+    <string name="prefHintJugador">Player</string>
     <string name="prefTituloCategoria1">Personal information</string>
     <string name="prefTituloCategoria2">Game Settings</string>
     <string name="prefTituloNombreJugador">Player\'s name</string>
@@ -40,5 +41,31 @@
     <!--Partidas almacenadas-->
     <string name="txt_getSaveTitle">Games</string>
     <string name="txt_getSaveMessage">You are sure to want to load the stored item, because there is chip movement!</string>
-    <string name="txt_getSave">Cargando</string>
+    <string name="txt_getSave">Loading</string>
+    <!--Resultados-->
+    <string name="preferencesResult">Result</string>
+    <string name="resultSave">Save</string>
+    <string name="resultCancel">Cancel</string>
+    <string name="deleteResultado">Delete Score</string>
+
+    <string name="txtDialogoDeleteTitulo">Delete result</string>
+    <string name="txtDialogoDeletePregunta">¿You want to remove all results?</string>
+    <string name="txtDialogoDeleteAfirmativo">Yes</string>
+    <string name="txtDialogoDeleteNegativo">No</string>
+
+    <string name="txtPlayer">Player is name</string>
+    <string name="txtdelete">Deleted results</string>
+
+    <!--Colores-->
+    <string-array name="color">
+        <item>Ecuadorian</item>
+        <item>Spanish</item>
+    </string-array>
+    <string-array name="colorValues">
+        <item>ec</item>
+        <item>es</item>
+    </string-array>
+    <string name="txtcolores">Styles</string>
+    <string name="txtInfoColores">Color combination by country.</string>
+
 </resources>

@@ -1,6 +1,6 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.logic;
 
-class JuegoCelta {
+public class JuegoCelta {
 
 	public static final int TAMANIO = 7;
 	public static final int HUECO = 0;
@@ -178,7 +178,7 @@ class JuegoCelta {
         estadoJuego = Estado.ESTADO_SELECCION_FICHA;
 	}
 
-	int contPiezas() {
+	public int contPiezas() {
 		int contPiezas = 0;
 		for (int i = 0; i < TAMANIO; i++)
 			for (int j = 0; j < TAMANIO; j++)

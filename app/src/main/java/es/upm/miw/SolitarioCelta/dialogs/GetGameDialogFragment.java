@@ -1,4 +1,4 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,11 +6,14 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import es.upm.miw.SolitarioCelta.R;
+import es.upm.miw.SolitarioCelta.activities.MainActivity;
+
 /**
  * Created by Usuario on 21/10/2017.
  */
 
-public class GetDialogFragment extends DialogFragment {
+public class GetGameDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final MainActivity main = (MainActivity) getActivity();
