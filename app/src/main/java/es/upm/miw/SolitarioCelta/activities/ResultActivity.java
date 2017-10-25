@@ -88,10 +88,10 @@ public class ResultActivity extends Activity {
     private List<String> getResult() throws IOException {
         bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(RESULT)));
         String rdLine = bufferedReader.readLine();
-        do{
+        while(rdLine != null){
             resultados.add(rdLine);
             rdLine = bufferedReader.readLine();
-        }while(rdLine != null);
+        }
         bufferedReader.close();
         return resultados;
     }
