@@ -4,10 +4,27 @@
         <EditTextPreference
             android:key="nombreJugador"
             android:title="@string/prefTituloNombreJugador"
-            android:summary="@string/prefTextoNombreJugador" />
+            android:summary="@string/prefTextoNombreJugador"
+            android:hint="@string/prefHintJugador" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefTituloCategoria2">
         <!-- TODO Añadir otros ajustes -->
+        <ListPreference
+            android:defaultValue="@string/default_idioma"
+            android:entries="@array/languages"
+            android:entryValues="@array/languagesValues"
+            android:key="@string/key_idioma"
+            android:summary="@string/txtInfoList"
+            android:title="@string/txtIdioma"/>
+
+        <ListPreference
+            android:defaultValue="@string/default_color"
+            android:entries="@array/color"
+            android:entryValues="@array/colorValues"
+            android:key="@string/key_color"
+            android:summary="@string/txtInfoColores"
+            android:title="@string/txtcolores"/>
+
     </PreferenceCategory>
 </PreferenceScreen>

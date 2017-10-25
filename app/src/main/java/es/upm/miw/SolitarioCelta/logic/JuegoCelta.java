@@ -1,6 +1,6 @@
-package es.upm.miw.SolitarioCelta;
+package es.upm.miw.SolitarioCelta.logic;
 
-class JuegoCelta {
+public class JuegoCelta {
 
 	public static final int TAMANIO = 7;
 	public static final int HUECO = 0;
@@ -176,5 +176,14 @@ class JuegoCelta {
         tablero[TAMANIO / 2][TAMANIO / 2] = HUECO;   // hueco en posición central
 
         estadoJuego = Estado.ESTADO_SELECCION_FICHA;
+	}
+
+	public int contPiezas() {
+		int contPiezas = 0;
+		for (int i = 0; i < TAMANIO; i++)
+			for (int j = 0; j < TAMANIO; j++)
+				if (this.tablero[i][j] == JuegoCelta.FICHA)
+					contPiezas++;
+		return contPiezas;
 	}
 }
