@@ -63,7 +63,7 @@ public class ResultActivity extends Activity {
         List<String> listaOrdenada = new ArrayList<String>();
         Collections.sort(resultados);
         for (Resultados result : resultados) {
-            String resultadoOrd = result.getNombreJugador() + " " + result.getFecha() + " - " + getString(R.string.txt_token) + " (" + result.getNumPiezas() + ")\t" + " - " + result.getCronometro();
+            String resultadoOrd = result.getJugador() + " " + result.getFecha() + " - " + getString(R.string.txt_token) + " (" + result.getPiezas() + ")\t" + " - " + result.getCronometro();
             listaOrdenada.add(resultadoOrd);
         }
         return listaOrdenada;

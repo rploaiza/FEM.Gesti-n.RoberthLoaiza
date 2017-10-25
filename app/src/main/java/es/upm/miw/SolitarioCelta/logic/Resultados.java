@@ -6,24 +6,24 @@ package es.upm.miw.SolitarioCelta.logic;
 
 public class Resultados implements Comparable<Resultados> {
 
-    private String nombreJugador;
+    private String jugador;
     private String fecha;
-    private int numPiezas;
+    private int piezas;
     private String cronometro;
 
-    public Resultados(String nombreJugador, String fecha, int numPiezas, String cronometro) {
-        this.setNombreJugador(nombreJugador);
+    public Resultados(String jugador, String fecha, int piezas, String cronometro) {
+        this.setJugador(jugador);
         this.setFecha(fecha);
-        this.setNumPiezas(numPiezas);
+        this.setPiezas(piezas);
         this.setCronometro(cronometro);
     }
 
-    public String getNombreJugador() {
-        return nombreJugador;
+    public String getJugador() {
+        return jugador;
     }
 
-    public void setNombreJugador(String nombreJugador) {
-        this.nombreJugador = nombreJugador;
+    public void setJugador(String nombreJugador) {
+        this.jugador = nombreJugador;
     }
 
     public String getFecha() {
@@ -34,12 +34,12 @@ public class Resultados implements Comparable<Resultados> {
         this.fecha = fecha;
     }
 
-    public int getNumPiezas() {
-        return numPiezas;
+    public int getPiezas() {
+        return piezas;
     }
 
-    public void setNumPiezas(int numPiezas) {
-        this.numPiezas = numPiezas;
+    public void setPiezas(int piezas) {
+        this.piezas = piezas;
     }
 
     public String getCronometro() {
@@ -52,7 +52,7 @@ public class Resultados implements Comparable<Resultados> {
 
     @Override
     public int compareTo(Resultados resultado) {
-        return (numPiezas > resultado.numPiezas) ? 1 : (numPiezas < resultado.numPiezas) ? -1 : 0;
+        return (piezas > resultado.piezas) ? 1 : (piezas < resultado.piezas) ? -1 : 0;
     }
 }
 
