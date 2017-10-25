@@ -218,9 +218,9 @@ public class MainActivity extends Activity {
         this.estadoGuardado = bufferedReader.readLine();
         bufferedReader.close();
         if (this.numFichas > juego.numeroFichas()) {
-            Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
             DialogFragment dialogFragment = new GetGameDialogFragment();
             dialogFragment.show(getFragmentManager(), "SAVE_GAME");
+            Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
             this.numFichas = juego.numeroFichas();
         }
     }

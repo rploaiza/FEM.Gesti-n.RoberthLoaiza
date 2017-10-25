@@ -31,12 +31,12 @@ public class SaveGameDialogFragment extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                String nombreDialog = ((EditText) SaveGameDialogFragment.this
+                                String save = ((EditText) SaveGameDialogFragment.this
                                         .getDialog().findViewById(R.id.userName))
                                         .getText().toString();
                                 try {
-                                    if (nombreDialog.length() > 0) {
-                                        main.saveResultFormat(nombreDialog);
+                                    if (save.length() > 0) {
+                                        main.saveResultFormat(save);
                                     } else {
                                         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(main);
                                         String nombrePrtef = sharedPref.getString("nombreJugador", "Jugador");
