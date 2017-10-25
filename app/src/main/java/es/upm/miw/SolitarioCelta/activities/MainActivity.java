@@ -220,31 +220,28 @@ public class MainActivity extends Activity {
         if (this.numFichas > juego.numeroFichas()) {
             DialogFragment dialogFragment = new GetGameDialogFragment();
             dialogFragment.show(getFragmentManager(), "SAVE_GAME");
+            Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
             this.numFichas = juego.numeroFichas();
-        } else {
-            juego.deserializaTablero(estadoGuardado);
-            this.mostrarTablero();
         }
-        Toast.makeText(this, getString(R.string.txt_getSave), Toast.LENGTH_SHORT).show();
     }
 
     public void saveResultFormat(String nombre) throws IOException {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String Time = dateFormat.format(new Date());
+        SimpleDateFormat date = new SimpleDateFormat();
+        String fecha = date.format(new Date());
 
-        Resultados resultado = new Resultados(nombre, Time, juego.contPiezas(), (String) cronometro.getText());
+        Resultados resultado = new Resultados(nombre, fecha, juego.contPiezas(), (String) cronometro.getText());
         saveResultado(resultado);
         cronometro.start();
     }
 
     public void saveResultado(Resultados resultado) throws IOException {
         fileOutputStream = openFileOutput(RESULT, Context.MODE_APPEND);
-        fileOutputStream.write(resultado.getNombreJugador().getBytes());
+        fileOutputStream.write(resultado.getJugador().getBytes());
         fileOutputStream.write("\t".getBytes());
         fileOutputStream.write(resultado.getFecha().getBytes());
         fileOutputStream.write("\t".getBytes());
-        fileOutputStream.write(String.valueOf(resultado.getNumPiezas()).getBytes());
+        fileOutputStream.write(String.valueOf(resultado.getPiezas()).getBytes());
         fileOutputStream.write("\t".getBytes());
         fileOutputStream.write(String.valueOf(resultado.getCronometro()).getBytes());
         fileOutputStream.write("\n".getBytes());

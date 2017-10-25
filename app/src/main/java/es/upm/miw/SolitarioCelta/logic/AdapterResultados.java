@@ -1,6 +1,7 @@
 package es.upm.miw.SolitarioCelta.logic;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,14 @@ import es.upm.miw.SolitarioCelta.R;
 public class AdapterResultados extends ArrayAdapter {
 
     private Context contexto;
-    private List<String> resultados;
+    private List<Resultados> resultados;
     private int resultRecursoID;
 
     public AdapterResultados(Context context, int resource, List objects) {
         super(context, resource, objects);
         this.setContexto(context);
         this.setResultRecursoID(resource);
-        this.setResultados((List<String>)objects);
+        this.setResultados((List<Resultados>)objects);
     }
 
     public Context getContexto() {
@@ -37,11 +38,11 @@ public class AdapterResultados extends ArrayAdapter {
         this.contexto = contexto;
     }
 
-    public List<String> getResultados() {
+    public List<Resultados> getResultados() {
         return resultados;
     }
 
-    public void setResultados(List<String> resultados) {
+    public void setResultados(List<Resultados> resultados) {
         this.resultados = resultados;
     }
 
@@ -64,7 +65,7 @@ public class AdapterResultados extends ArrayAdapter {
         }
         
         TextView resultado = (TextView) view.findViewById(R.id.resultado);
-        resultado.setText(this.getResultados().get(position));
+        resultado.setText((CharSequence) this.getResultados().get(position));
 
         return view;
     }

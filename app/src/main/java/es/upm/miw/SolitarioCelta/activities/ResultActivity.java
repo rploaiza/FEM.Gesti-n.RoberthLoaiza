@@ -19,6 +19,7 @@ import java.util.List;
 
 import es.upm.miw.SolitarioCelta.logic.AdapterResultados;
 import es.upm.miw.SolitarioCelta.R;
+import es.upm.miw.SolitarioCelta.logic.ResultadoComparater;
 import es.upm.miw.SolitarioCelta.logic.Resultados;
 import es.upm.miw.SolitarioCelta.dialogs.DeleteResultDialogFragment;
 
@@ -30,67 +31,21 @@ public class ResultActivity extends Activity {
 
     public final static String RESULT = "result.txt";
     private FileOutputStream fileOutputStream;
-    List<String> resultados = new ArrayList<String>();
+    private BufferedReader bufferedReader;
+    List<String> resultados = new ArrayList<>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result);
         ListView listView = (ListView) findViewById(R.id.listado);
         try {
-            resultados = obtenerResultados();
-            List<Resultados> listaObjetosResultado = obtenerListaObjetosResultado(resultados);
-            resultados = ordenarResultados(listaObjetosResultado);
-            AdapterResultados adaptador = new AdapterResultados(this, R.layout.result, resultados);
-            listView.setAdapter(adaptador);
+            List<Resultados> lista = objList(getResult());
+            AdapterResultados adapterResultados = new AdapterResultados(this, R.layout.result, objOrder(lista));
+            listView.setAdapter(adapterResultados);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    //Obtener una la lista de objetos - tabulados
-    private List<Resultados> obtenerListaObjetosResultado(List<String> resultados) {
-        List<Resultados> lista = new ArrayList<Resultados>();
-        for (String resul : resultados) {
-            String[] separated = resul.split("\t");
-            Resultados r = new Resultados(separated[0], separated[1], Integer.parseInt(separated[2]), separated[3]);
-            lista.add(r);
-        }
-        return lista;
-    }
-
-    //Ordenar los objetos para visualizar en el view
-    private List<String> ordenarResultados(List<Resultados> resultados) {
-        List<String> listaOrdenada = new ArrayList<String>();
-        Collections.sort(resultados);
-        for (Resultados result : resultados) {
-            String resultadoOrd = result.getNombreJugador() + " " + result.getFecha() + " - " + getString(R.string.txt_token) + " (" + result.getNumPiezas() + ")\t" + " - " + result.getCronometro();
-            listaOrdenada.add(resultadoOrd);
-        }
-        return listaOrdenada;
-    }
-
-    //Read de fichero resultados
-    private List<String> obtenerResultados() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(RESULT)));
-        String line = bufferedReader.readLine();
-        while (line != null) {
-            resultados.add(line);
-            line = bufferedReader.readLine();
-        }
-        bufferedReader.close();
-        return resultados;
-    }
-
-    //Eliminar datos del fichero
-    public void deleteResultados() throws IOException {
-        fileOutputStream = openFileOutput(RESULT, Context.MODE_PRIVATE);
-        fileOutputStream.write("".getBytes());
-        fileOutputStream.close();
-        Toast.makeText(this, R.string.txtdelete, Toast.LENGTH_SHORT).show();
-
-    }
-
-
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.result_menu, menu);
@@ -104,6 +59,50 @@ public class ResultActivity extends Activity {
                 return true;
         }
         return true;
+    }
+
+    //Obtener una la lista de objetos - tabulados
+    private List<Resultados> objList(List<String> resultados) {
+        List<Resultados> lista = new ArrayList<>();
+        for (String listResult : resultados) {
+            String[] position = listResult.split("\t");
+            Resultados resultado = new Resultados(position[0], position[1], Integer.parseInt(position[2]), position[3]);
+            lista.add(resultado);
+        }
+        return lista;
+    }
+
+    //Ordenar los objetos para visualizar en el view
+    private List<String> objOrder(List<Resultados> resultados) {
+        List<String> ordList = new ArrayList<>();
+        Collections.sort(resultados, new ResultadoComparater());
+        for (Resultados resultado : resultados) {
+            String rstOrd = resultado.getJugador() + "        " + resultado.getFecha() + "\n - " + getString(R.string.txt_token)
+                    + " (" + resultado.getPiezas() + ")" + "        " + resultado.getCronometro();
+            ordList.add(rstOrd);
+        }
+        return ordList;
+    }
+
+    //Read de fichero resultados
+    private List<String> getResult() throws IOException {
+        bufferedReader = new BufferedReader(new InputStreamReader(openFileInput(RESULT)));
+        String rdLine = bufferedReader.readLine();
+        do{
+            resultados.add(rdLine);
+            rdLine = bufferedReader.readLine();
+        }while(rdLine != null);
+        bufferedReader.close();
+        return resultados;
+    }
+
+    //Eliminar datos del fichero
+    public void deleteResultados() throws IOException {
+        fileOutputStream = openFileOutput(RESULT, Context.MODE_PRIVATE);
+        fileOutputStream.write("".getBytes());
+        fileOutputStream.close();
+        Toast.makeText(this, R.string.txtdelete, Toast.LENGTH_SHORT).show();
+
     }
 }
 
