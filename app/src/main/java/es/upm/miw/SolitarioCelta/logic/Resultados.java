@@ -1,10 +1,12 @@
 package es.upm.miw.SolitarioCelta.logic;
 
+import java.io.Serializable;
+
 /**
  * Created by Usuario on 21/10/2017.
  */
 
-public class Resultados implements Comparable<Resultados> {
+public class Resultados implements Serializable {
 
     private String jugador;
     private String fecha;
@@ -50,9 +52,5 @@ public class Resultados implements Comparable<Resultados> {
         this.cronometro = cronometro;
     }
 
-    @Override
-    public int compareTo(Resultados resultado) {
-        return (piezas > resultado.piezas) ? 1 : (piezas < resultado.piezas) ? -1 : 0;
-    }
 }
 

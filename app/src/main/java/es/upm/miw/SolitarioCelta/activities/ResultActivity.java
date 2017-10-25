@@ -19,6 +19,7 @@ import java.util.List;
 
 import es.upm.miw.SolitarioCelta.logic.AdapterResultados;
 import es.upm.miw.SolitarioCelta.R;
+import es.upm.miw.SolitarioCelta.logic.ResultadoComparater;
 import es.upm.miw.SolitarioCelta.logic.Resultados;
 import es.upm.miw.SolitarioCelta.dialogs.DeleteResultDialogFragment;
 
@@ -61,9 +62,9 @@ public class ResultActivity extends Activity {
     //Ordenar los objetos para visualizar en el view
     private List<String> ordenarResultados(List<Resultados> resultados) {
         List<String> listaOrdenada = new ArrayList<String>();
-        Collections.sort(resultados);
+        Collections.sort(resultados, new ResultadoComparater());
         for (Resultados result : resultados) {
-            String resultadoOrd = result.getJugador() + " " + result.getFecha() + " - " + getString(R.string.txt_token) + " (" + result.getPiezas() + ")\t" + " - " + result.getCronometro();
+            String resultadoOrd = result.getJugador() + " " + result.getFecha() + " - " + getString(R.string.txt_token) + " (" + result.getPiezas() + ")" + " - " + result.getCronometro();
             listaOrdenada.add(resultadoOrd);
         }
         return listaOrdenada;

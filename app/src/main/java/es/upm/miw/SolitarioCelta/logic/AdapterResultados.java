@@ -66,6 +66,8 @@ public class AdapterResultados extends ArrayAdapter {
         TextView resultado = (TextView) view.findViewById(R.id.resultado);
         resultado.setText(this.getResultados().get(position));
 
+
+
         return view;
     }
 }
